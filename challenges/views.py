@@ -17,13 +17,12 @@ monthly_challenges = {
     "september": "Learn Django for at least 20 minutes every day!",
     "october": "Eat no meat for the entire month!",
     "november": "Walk for at least 20 minutes every day!",
-    "december": "Learn Django for at least 20 minutes every day!",
+    "december": None,
 }
 
 def index(request):
-    months = list(monthly_challenges.keys())
     # Solution 1
-    list_items = ''.join(list(map(lambda m: f"<li><a href={reverse('month-challenge', args=[m])}>{m.capitalize()}</a></li>", months)))
+    # list_items = ''.join(list(map(lambda m: f"<li><a href={reverse('month-challenge', args=[m])}>{m.capitalize()}</a></li>", months)))
 
     # Solution 2
     # for month in months:
@@ -31,8 +30,12 @@ def index(request):
 
     # Solution 3
     # list_items = ''.join([f"<li><a href={reverse('month-challenge', args=[m])}>{m.capitalize()}</a></li>" for m in months])
+    # return HttpResponse(f"<ul>{list_items}</ul>")
 
-    return HttpResponse(f"<ul>{list_items}</ul>")
+    # Solution 4 with DTL
+    months = list(monthly_challenges.keys())
+    return render(request, "challenges/index.html", { "months": months })
+
 
 def monthly_challenge_by_number(request, month):
     months = list(monthly_challenges.keys())
@@ -47,8 +50,12 @@ def monthly_challenge_by_number(request, month):
 
 def monthly_challenge(request, month):
     try:
-        challenge_text = f"<h1>{monthly_challenges[month]}</h1>"
-        response_data = render_to_string("challenges/challenge.html")
-        return HttpResponse(response_data)
+        challenge_text = monthly_challenges[month]
+        context = { "text": challenge_text, "month": month.capitalize() }
+        return render(request, "challenges/challenge.html", context)
+
+        # Solution 2
+        # response_data = render_to_string("challenges/challenge.html")
+        # return HttpResponse(response_data)
     except:
         return HttpResponseNotFound("<h1>This month is not supported!</h1>")
