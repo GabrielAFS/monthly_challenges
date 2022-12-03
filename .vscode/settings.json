@@ -1,0 +1,12 @@
+{
+  "python.languageServer": "Pylance",
+  "files.insertFinalNewline": true,
+  "files.defaultLanguage": "python",
+  "files.associations": {
+    "**/*.html": "html",
+    "**/templates/**/*.html": "django-html",
+    "**/templates/**/*": "django-txt",
+    "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+  },
+  "python.analysis.typeCheckingMode": "basic"
+}
