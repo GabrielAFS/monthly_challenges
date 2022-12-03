@@ -8,5 +8,9 @@
     "**/templates/**/*": "django-txt",
     "**/requirements{/**,*}.{txt,in}": "pip-requirements"
   },
+  "[django-html]": {
+    "editor.defaultFormatter": "batisteo.vscode-django",
+    "editor.formatOnSave": true
+  },
   "python.analysis.typeCheckingMode": "basic"
 }
